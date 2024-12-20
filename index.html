@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Arnold's Game Store</title>
+    <link rel="stylesheet" type='text/css' href="./index.css">
+</head>
+
+<body>
+    <div id="home-page-container">
+        <div class="top-area">
+            <div id="logo">
+                <a href="./index.html">
+                    <p>Major<span>Games</span></p>
+                </a>
+            </div>
+            <div id="search-box">
+                <form>
+                    <input type="text" id="search-input">
+                    <input type="submit" value="Search" class="button secondary" id="search-button">
+                </form>
+            </div>
+            <div id="cart-area">
+                <!-- <img src="https://www.reshot.com/preview-assets/icons/8GPDAMEX5N/shopping-cart-8GPDAMEX5N.svg"> -->
+                <svg version="1.1" class="shopping-cart black" xmlns="http://www.w3.org/2000/svg" x="0" y="0"
+                    viewBox="0 0 128 128" style="enable-background:new 0 0 128 128" xml:space="preserve">
+                    <g id="_x35__1_">
+                        <path class="st2"
+                            d="M124.5 39.8H38v6.9h83v6.9H38v6.9h83v6.9H38v6.9h83v6.9H31.1V1.7H0v6.9h24.2v79.6H128V39.8h-3.5zM24.2 102.1H128v-6.9H24.2v6.9zm20.8 3.4c-5.7 0-10.4 4.6-10.4 10.4 0 5.7 4.6 10.4 10.4 10.4 5.7 0 10.4-4.6 10.4-10.4 0-5.7-4.7-10.4-10.4-10.4zm62.2 0c-5.7 0-10.4 4.6-10.4 10.4 0 5.7 4.6 10.4 10.4 10.4 5.7 0 10.4-4.6 10.4-10.4 0-5.7-4.6-10.4-10.4-10.4z"
+                            id="icon_10_" />
+                    </g>
+                </svg>
+                <p id="cart-counter">0</p>
+                <button class="button primary">Checkout</button>
+            </div>
+        </div>
+        <div class="checkout-box hidden">
+            <p>You have checked out!</p>
+        </div>
+        <div class="content-area"></div>
+    </div>
+    <script src="./index.js"></script>
+</body>
+
+</html>

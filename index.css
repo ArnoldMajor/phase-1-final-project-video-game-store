@@ -1,0 +1,218 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    --ff-poppins: 'Poppins';
+    --fw-light: 400;
+    --fw-regular: 500;
+    --fw-medium: 600;
+    --fw-semibold: 700;
+    --fw-bold: 800;
+    --clr-outer-space: #444545;
+    --clr-pear: #C1DF1F;
+    --clr-jade: #00A676;
+    --clr-timberwolf: #D8D4D5;
+    --clr-snow: #FCF7F8;
+    --clr-night: #141515;
+}
+
+#home-page-container {
+    background-color: var(--clr-night);
+    height: fit-content;
+    font-family: var(--ff-poppins);
+}
+
+.top-area {
+    background-color: var(--clr-pear);
+    height: 80px;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    align-items: center;
+    padding: 10px 150px;
+}
+
+.checkout-box {
+    width: 300px;
+    height: 300px;
+    color: var(--clr-night);
+    font-weight: var(--fw-bold);
+    background-color: var(--clr-snow);
+    z-index: 999;
+    position: fixed;
+    top: 400px;
+    left: 800px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.hidden {
+    visibility: hidden;
+}
+
+.content-area {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+    flex-wrap: wrap;
+    padding: 50px 150px;
+
+}
+
+.game-card {
+    background-color: var(--clr-outer-space);
+    padding: 10px 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border-radius: 5px;
+}
+
+.card-info-area {
+    display: grid;
+    grid-template-columns: 1fr 0fr;
+    width: 100%;
+    padding: 10px 0px;
+    align-items: center;
+}
+
+.card-description-area {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.card-button-area {
+    display: flex;
+    flex-direction: row;
+    gap: 5px;
+}
+
+.game-title {
+    font-size: 0.9rem;
+    color: var(--clr-snow);
+    font-weight: var(--fw-semibold);
+    line-height: 0.9rem;
+}
+
+.game-price {
+    font-size: 0.8rem;
+    color: var(--clr-pear);
+    font-weight: var(--fw-medium);
+}
+
+#logo {
+    justify-content: start;
+}
+
+#logo p {
+    font-size: 1.5rem;
+    font-weight: var(--fw-bold);
+    color: var(--clr-night);
+}
+
+#logo span {
+    color: var(--clr-jade);
+}
+
+#logo a {
+    text-decoration: none;
+}
+
+#cart-area {
+    display: flex;
+    flex-direction: row;
+    justify-content: end;
+    align-items: center;
+    gap: 10px;
+}
+
+.shopping-cart {
+    fill: var(--clr-night);
+    width: 25px;
+}
+
+.black {
+    fill: var(--clr-night);
+}
+
+.white {
+    fill: var(--clr-snow);
+}
+
+#search-box {
+    text-align: center;
+}
+
+#search-input {
+    border: solid 2px var(--clr-jade);
+    border-radius: 50px;
+    padding: 5px 15px;
+    font-family: var(--ff-poppins);
+    font-weight: var(--fw-medium);
+    color: var(--clr-night);
+    width: 200px;
+}
+
+#search-input:focus {
+    outline: var(--clr-jade);
+}
+
+.button {
+    padding: 7px 20px;
+    border: solid 2px;
+    border-radius: 20px;
+    font-weight: var(--fw-semibold);
+}
+
+.button:hover {
+    cursor: pointer;
+    border-color: var(--clr-snow);
+    color: var(--clr-snow);
+}
+
+.primary {
+    background-color: var(--clr-jade);
+    color: var(--clr-snow);
+    border-color: var(--clr-jade);
+}
+
+.secondary {
+    background-color: transparent;
+    border-color: var(--clr-jade);
+    color: var(--clr-jade);
+}
+
+.checkout {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--clr-pear);
+    width: 40px;
+    padding: 5px 10px;
+    border-radius: 5px;
+    border-color: var(--clr-pear);
+}
+
+.info {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-color: var(--clr-pear);
+    color: var(--clr-snow);
+    width: 40px;
+    padding: 5px 10px;
+    border-radius: 5px;
+    background-color: transparent;
+}
+
+
+#cart-counter {
+    background-color: var(--clr-night);
+    padding: 1px 4px;
+    border-radius: 15px;
+    color: var(--clr-snow);
+    font-weight: var(--fw-semibold);
+}
