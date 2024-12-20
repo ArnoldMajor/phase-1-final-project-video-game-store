@@ -22,7 +22,7 @@ Users can see how much they are saving on each game.
 
 - **CSS**: Styles the webpage for a clean and interactive user experience.
 
-- **JavaScript**: Implements functionality including array manipulation, DOM updates, and event handling.
+- **JavaScript**: Implements functionality including fetching data from the database, DOM updates, and event handling.
 
 ## Setup Instructions ##
 
