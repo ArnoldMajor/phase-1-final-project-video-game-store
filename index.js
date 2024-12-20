@@ -1,13 +1,12 @@
 'use strict'
-
-
-
 document.addEventListener('DOMContentLoaded', () => {
 
     const homePageContainer = document.getElementById('home-page-container');
     const topBar = document.querySelector('.top-area');
     const contentArea = document.querySelector('.content-area');
     const cartCounter = document.getElementById('cart-counter')
+    let totalPrice = 0;
+    let gamesArr = [];
 
     homePageContainer.style.height = '100vh';
 
@@ -29,9 +28,12 @@ document.addEventListener('DOMContentLoaded', () => {
             const cardButtons = document.createElement('div');
             const gameThumbnail = document.createElement('img');
             const gameTitle = document.createElement('p');
+            const priceSect = document.createElement('div')
             const gamePrice = document.createElement('p');
+            const savePercent = document.createElement('p');
             const addToCartBtn = document.createElement('button');
             const moreInfoBtn = document.createElement('button');
+            const moreInfoArea = document.querySelector('.more-info');
 
 
             contentArea.appendChild(gameCard);
@@ -57,9 +59,18 @@ document.addEventListener('DOMContentLoaded', () => {
             gameTitle.className = 'game-title';
             gameTitle.textContent = item.title
 
-            cardDescription.appendChild(gamePrice);
+            cardDescription.appendChild(priceSect);
+            priceSect.className = 'price-section';
+
+            let price = item.id * 100
+            priceSect.appendChild(gamePrice);
             gamePrice.className = 'game-price';
-            gamePrice.textContent = `TZS ${item.id}`
+            gamePrice.textContent = `TZS ${price}`
+
+            let percent = (Math.ceil((item.id / 100) ** 2)) + 10;
+            priceSect.appendChild(savePercent)
+            savePercent.className = 'percent-saved';
+            savePercent.textContent = `Save ${percent}%`
 
             cardButtons.appendChild(moreInfoBtn);
             moreInfoBtn.className = 'button info';
@@ -77,7 +88,46 @@ document.addEventListener('DOMContentLoaded', () => {
             </svg>'
 
             addToCartBtn.addEventListener('click', () => {
-                cartCounter.textContent = Number(cartCounter.textContent) + 1;
+                totalPrice += price;
+                cartCounter.textContent = `TZS ${totalPrice}`;
+                addToCartBtn.classList.add('inactive');
+                addToCartBtn.disabled = true;
+                gamesArr.push(item.title);
+            })
+
+            gameCard.addEventListener('click', () => {
+                moreInfoArea.innerHTML = '';
+
+                const gameTitleInfo = document.createElement('h1');
+                moreInfoArea.appendChild(gameTitleInfo);
+                gameTitleInfo.className = 'more-info-title';
+                gameTitleInfo.textContent = item.title;
+
+                const gameThumbnailInfo = document.createElement('img');
+                moreInfoArea.appendChild(gameThumbnailInfo);
+                gameThumbnailInfo.className = 'more-info-image';
+                gameThumbnailInfo.src = item.thumbnail;
+
+                const gameDescription = document.createElement('p');
+                moreInfoArea.appendChild(gameDescription);
+                gameDescription.className = 'more-info-description';
+                gameDescription.textContent = item.short_description;
+
+                const developerInfo = document.createElement('p');
+                moreInfoArea.appendChild(developerInfo);
+                developerInfo.className = 'more-info-developer pointer';
+                developerInfo.innerHTML = `<span>Developer:</span> ${item.developer}`;
+
+
+                const genreInfo = document.createElement('p');
+                moreInfoArea.appendChild(genreInfo);
+                genreInfo.className = 'more-info-genre pointer';
+                genreInfo.innerHTML = `<span>Genre:</span> ${item.genre}`;
+
+                const platformInfo = document.createElement('p');
+                moreInfoArea.appendChild(platformInfo);
+                platformInfo.className = 'more-info-platform pointer';
+                platformInfo.innerHTML = `<span>Platform:</span> ${item.platform}`;
             })
         }
     }

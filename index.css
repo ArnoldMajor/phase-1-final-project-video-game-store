@@ -25,12 +25,55 @@
 }
 
 .top-area {
+    position: sticky;
+    top: 0;
+    z-index: 999;
     background-color: var(--clr-pear);
     height: 80px;
+    width: 100vw;
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
     align-items: center;
     padding: 10px 150px;
+}
+
+.main-area {
+    display: flex;
+    flex-direction: row;
+}
+
+.more-info {
+    position: sticky;
+    color: var(--clr-snow);
+    background-color: var(--clr-outer-space);
+    padding: 150px 70px;
+    height: 100vh;
+    width: 500px;
+    top: 0;
+}
+
+.more-info-title {
+    font-size: 1.85rem;
+    margin-bottom: 30px;
+    line-height: 1.8rem;
+}
+
+.more-info-image {
+    margin-bottom: 30px;
+}
+
+.more-info-description {
+    margin-bottom: 30px;
+}
+
+.pointer span {
+    color: var(--clr-pear);
+    font-weight: var(--fw-bold);
+}
+
+.collapse {
+    visibility: hidden;
+    min-width: 0px;
 }
 
 .checkout-box {
@@ -57,7 +100,7 @@
     gap: 20px;
     justify-content: center;
     flex-wrap: wrap;
-    padding: 50px 150px;
+    padding: 100px 150px;
 
 }
 
@@ -68,6 +111,10 @@
     flex-direction: column;
     align-items: center;
     border-radius: 5px;
+}
+
+.card-image-area:hover {
+    cursor: pointer;
 }
 
 .card-info-area {
@@ -90,17 +137,38 @@
     gap: 5px;
 }
 
+.game-thumb {
+    width: 365px;
+}
+
 .game-title {
     font-size: 0.9rem;
     color: var(--clr-snow);
     font-weight: var(--fw-semibold);
     line-height: 0.9rem;
+    margin-bottom: 3px;
+}
+
+.price-section {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 10px;
 }
 
 .game-price {
     font-size: 0.8rem;
     color: var(--clr-pear);
     font-weight: var(--fw-medium);
+}
+
+.percent-saved {
+    color: var(--clr-snow);
+    background-color: var(--clr-night);
+    border: none;
+    border-radius: 10px;
+    font-size: 0.75rem;
+    padding: 2px 7px;
 }
 
 #logo {
@@ -196,6 +264,16 @@
     border-color: var(--clr-pear);
 }
 
+.inactive {
+    background-color: transparent;
+    border-color: var(--clr-night);
+}
+
+.inactive:hover {
+    cursor: default;
+    border-color: var(--clr-night);
+}
+
 .info {
     display: flex;
     align-items: center;
@@ -211,7 +289,7 @@
 
 #cart-counter {
     background-color: var(--clr-night);
-    padding: 1px 4px;
+    padding: 5px 10px;
     border-radius: 15px;
     color: var(--clr-snow);
     font-weight: var(--fw-semibold);
