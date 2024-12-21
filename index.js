@@ -50,7 +50,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     filteredData = rawData;
                 } else {
                     filteredData = rawData.filter((item) => {
-                        return item.title.toLowerCase().includes(searchValue)
+                        return item.title.toLowerCase().includes(searchValue) || item.genre.toLowerCase().includes(searchValue) || item.platform.toLowerCase().includes(searchValue);
                     })
                 }
                 createGameCards(filteredData);
