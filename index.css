@@ -62,7 +62,7 @@
 
 .close-menu-btn {
     padding: 10px;
-    background-color: var(--clr-outer-space);
+    background-color: transparent;
     color: var(--clr-snow);
     font-weight: var(--fw-bold);
     margin-bottom: 60px;
@@ -113,7 +113,7 @@
     position: fixed;
     top: 300px;
     left: 700px;
-    padding: 60px;
+    padding: 40px;
 }
 
 .hidden {
@@ -131,6 +131,7 @@
 
 .game-card {
     background-color: var(--clr-outer-space);
+    height: min-content;
     padding: 10px 10px;
     display: flex;
     flex-direction: column;
@@ -345,9 +346,62 @@
 
 .items-list {
     list-style-type: none;
+    margin-bottom: 20px;
+    min-height: 175px;
 }
 
 .items-list li {
     font-size: 0.75rem;
     font-weight: var(--fw-medium);
+}
+
+.total-area {
+    display: grid;
+    grid-template-columns: 1fr 0fr;
+    margin-bottom: 30px;
+}
+
+.total-area p {
+    font-weight: var(--fw-medium);
+}
+
+#total-price {
+    font-weight: var(--fw-bold);
+    font-size: 1rem;
+}
+
+#checkout-closer {
+    border-color: var(--clr-night);
+    color: var(--clr-night);
+    margin-bottom: 30px;
+}
+
+#confirm-button button {
+    width: 100%;
+    background-color: var(--clr-night);
+    padding: 15px 40px;
+    color: var(--clr-snow);
+    border: none;
+    border-radius: 10px;
+    font-weight: var(--fw-semibold);
+    font-size: 1rem;
+}
+
+.check-area-div {
+    display: flex;
+    margin-top: 30px;
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 30px;
+}
+
+.check-area-div svg {
+    width: 150px;
+}
+
+.confirm-message {
+    text-align: center;
+    font-weight: var(--fw-medium);
+    font-size: 1.5rem;
 }

@@ -6,10 +6,14 @@ const shoppingCartIcon = '<svg version="1.1" class="shopping-cart black" id="car
                         d="M124.5 39.8H38v6.9h83v6.9H38v6.9h83v6.9H38v6.9h83v6.9H31.1V1.7H0v6.9h24.2v79.6H128V39.8h-3.5zM24.2 102.1H128v-6.9H24.2v6.9zm20.8 3.4c-5.7 0-10.4 4.6-10.4 10.4 0 5.7 4.6 10.4 10.4 10.4 5.7 0 10.4-4.6 10.4-10.4 0-5.7-4.7-10.4-10.4-10.4zm62.2 0c-5.7 0-10.4 4.6-10.4 10.4 0 5.7 4.6 10.4 10.4 10.4 5.7 0 10.4-4.6 10.4-10.4 0-5.7-4.6-10.4-10.4-10.4z"\
                         id="icon_10_" />\
                 </g>\
-            </svg>'
+            </svg>';
+
+const checkMark = '<svg version="1.1" id="icons_1_" xmlns="http://www.w3.org/2000/svg" x="0" y="0" viewBox="0 0 128 128" style="enable-background:new 0 0 128 128" xml:space="preserve"><style>.st0{display:none}.st1{display:inline}.st2{fill:#0a0a0a}</style><g id="row1_1_"><g id="_x35__2_"><path class="st2" d="M64 .3C28.7.3 0 28.8 0 64s28.7 63.7 64 63.7 64-28.5 64-63.7S99.3.3 64 .3zm0 121C32.2 121.3 6.4 95.7 6.4 64 6.4 32.3 32.2 6.7 64 6.7s57.6 25.7 57.6 57.3c0 31.7-25.8 57.3-57.6 57.3zm23.2-76.8c-.9-.9-2.3-.9-3.2 0L55.2 73.2 41.4 59.5c-.9-.9-2.3-.9-3.2 0l-4.8 4.8c-.9.9-.9 2.3 0 3.2l15.3 15.3 3.3 3.3.8.8.7.7c.9.9 2.3.9 3.2 0L92 52.5c.9-.9.9-2.3 0-3.2l-4.8-4.8z" id="error_transparent_copy"/></g></g></svg>';
+
 
 
 document.addEventListener('DOMContentLoaded', () => {
+
 
     const homePageContainer = document.getElementById('home-page-container');
     const topBar = document.querySelector('.top-area');
@@ -18,6 +22,11 @@ document.addEventListener('DOMContentLoaded', () => {
     const checkoutBanner = document.getElementById('checkout-banner');
     const checkoutButton = document.getElementById('checkout-btn');
     const checkoutCloseBtn = document.getElementById('checkout-closer');
+    const gamesList = document.querySelector('.items-list');
+    const priceTotal = document.getElementById('total-price');
+    const confirmBtn = document.getElementById('confirm-button');
+    const checkoutContent = document.querySelector('.checkout-content');
+    const searchInput = document.getElementById('search-input');
 
     let totalPrice = 0;
     let gamesArr = [];
@@ -26,12 +35,29 @@ document.addEventListener('DOMContentLoaded', () => {
 
     fetch('https://api.jsonsilo.com/public/840ce560-9596-4154-b4ca-ff014394500f')
         .then(res => res.json())
-        .then(data => {
+        .then(rawData => {
             homePageContainer.style.height = 'fit-content';
-            fetchAllGames(data)
+            createGameCards(rawData);
+
+            document.addEventListener('submit', (e) => {
+                e.preventDefault();
+                contentArea.innerHTML = '';
+
+                const searchValue = searchInput.value.toLowerCase();
+                let filteredData;
+
+                if (searchValue === "") {
+                    filteredData = rawData;
+                } else {
+                    filteredData = rawData.filter((item) => {
+                        return item.title.toLowerCase().includes(searchValue)
+                    })
+                }
+                createGameCards(filteredData);
+            })
         })
 
-    function fetchAllGames(data) {
+    function createGameCards(data) {
         for (const item of data) {
 
             const gameCard = document.createElement('div');
@@ -191,19 +217,23 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
             }
-            updateToCart();
-
             function updateToCart() {
-                addToCartBtn.addEventListener('click', () => {
-                    if (!addToCartBtn.disabled) {
-                        totalPrice += price;
-                        cartCounter.textContent = `TZS ${totalPrice}`;
-                        disableAddButton(addToCartBtn);
-                        gamesArr.push(item.title);
-                    }
-                })
-                return gamesArr && totalPrice
+                addToCartBtn.disabled
+                totalPrice += price;
+                cartCounter.textContent = `TZS ${totalPrice}`;
+                disableAddButton(addToCartBtn);
+                gamesArr.push(item.title);
             }
+
+            addToCartBtn.addEventListener('click', () => {
+                updateToCart();
+                return gamesArr && totalPrice
+            })
+
+            confirmBtn.addEventListener('click', () => {
+                addToCartBtn.disabled = false;
+                addToCartBtn.classList.remove('inactive');
+            })
 
             function disableAddButton(button) {
                 button.classList.add('inactive');
@@ -214,9 +244,6 @@ document.addEventListener('DOMContentLoaded', () => {
     checkoutButton.addEventListener('click', () => {
         if (totalPrice > 0) {
             checkoutBanner.classList.remove('hidden');
-
-            const gamesList = document.querySelector('.items-list');
-            const priceTotal = document.getElementById('total-price');
 
             for (const item of gamesArr) {
                 const listEntry = document.createElement('li');
@@ -230,8 +257,35 @@ document.addEventListener('DOMContentLoaded', () => {
         } else alert('You don\'t have anything in the Cart!')
     })
 
+    const checkArea = document.createElement('div');
+    const confirmedMessage = document.createElement('p');
+
     checkoutCloseBtn.addEventListener('click', () => {
+        gamesList.innerHTML = '';
+        checkoutContent.classList.remove('hidden');
         checkoutBanner.classList.add('hidden');
+        checkArea.classList.add('hidden')
+        confirmedMessage.classList.add('hidden')
     })
 
+
+    confirmBtn.addEventListener('click', () => {
+        gamesArr = [];
+        totalPrice = 0;
+
+        cartCounter.textContent = 0
+
+
+        checkoutContent.classList.add('hidden');
+        checkoutContent.style.height = '0px';
+
+        checkoutBanner.appendChild(checkArea);
+        checkArea.className = 'check-area-div';
+        checkArea.innerHTML = checkMark;
+
+        checkoutBanner.appendChild(confirmedMessage);
+        confirmedMessage.textContent = 'Your Order Is Confirmed!';
+        confirmedMessage.className = 'confirm-message'
+
+    })
 })
