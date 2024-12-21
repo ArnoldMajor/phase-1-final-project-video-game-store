@@ -1,10 +1,24 @@
 'use strict'
+const shoppingCartIcon = '<svg version="1.1" class="shopping-cart black" id="cart-icon" xmlns="http://www.w3.org/2000/svg" x="0" y="0"\
+                viewBox="0 0 128 128\" style=\"enable-background:new 0 0 128 128\" xml:space=\"preserve">\
+                <g id="_x35__1_">\
+                    <path class="st2"\
+                        d="M124.5 39.8H38v6.9h83v6.9H38v6.9h83v6.9H38v6.9h83v6.9H31.1V1.7H0v6.9h24.2v79.6H128V39.8h-3.5zM24.2 102.1H128v-6.9H24.2v6.9zm20.8 3.4c-5.7 0-10.4 4.6-10.4 10.4 0 5.7 4.6 10.4 10.4 10.4 5.7 0 10.4-4.6 10.4-10.4 0-5.7-4.7-10.4-10.4-10.4zm62.2 0c-5.7 0-10.4 4.6-10.4 10.4 0 5.7 4.6 10.4 10.4 10.4 5.7 0 10.4-4.6 10.4-10.4 0-5.7-4.6-10.4-10.4-10.4z"\
+                        id="icon_10_" />\
+                </g>\
+            </svg>'
+
+
 document.addEventListener('DOMContentLoaded', () => {
 
     const homePageContainer = document.getElementById('home-page-container');
     const topBar = document.querySelector('.top-area');
     const contentArea = document.querySelector('.content-area');
-    const cartCounter = document.getElementById('cart-counter')
+    const cartCounter = document.getElementById('cart-counter');
+    const checkoutBanner = document.getElementById('checkout-banner');
+    const checkoutButton = document.getElementById('checkout-btn');
+    const checkoutCloseBtn = document.getElementById('checkout-closer');
+
     let totalPrice = 0;
     let gamesArr = [];
 
@@ -16,7 +30,6 @@ document.addEventListener('DOMContentLoaded', () => {
             homePageContainer.style.height = 'fit-content';
             fetchAllGames(data)
         })
-
 
     function fetchAllGames(data) {
         for (const item of data) {
@@ -78,25 +91,35 @@ document.addEventListener('DOMContentLoaded', () => {
 
             cardButtons.appendChild(addToCartBtn);
             addToCartBtn.className = 'button checkout'
-            addToCartBtn.innerHTML = '<svg version="1.1" class="shopping-cart black" xmlns="http://www.w3.org/2000/svg" x="0" y="0"\
-                viewBox="0 0 128 128\" style=\"enable-background:new 0 0 128 128\" xml:space=\"preserve">\
-                <g id="_x35__1_">\
-                    <path class="st2"\
-                        d="M124.5 39.8H38v6.9h83v6.9H38v6.9h83v6.9H38v6.9h83v6.9H31.1V1.7H0v6.9h24.2v79.6H128V39.8h-3.5zM24.2 102.1H128v-6.9H24.2v6.9zm20.8 3.4c-5.7 0-10.4 4.6-10.4 10.4 0 5.7 4.6 10.4 10.4 10.4 5.7 0 10.4-4.6 10.4-10.4 0-5.7-4.7-10.4-10.4-10.4zm62.2 0c-5.7 0-10.4 4.6-10.4 10.4 0 5.7 4.6 10.4 10.4 10.4 5.7 0 10.4-4.6 10.4-10.4 0-5.7-4.6-10.4-10.4-10.4z"\
-                        id="icon_10_" />\
-                </g>\
-            </svg>'
+            addToCartBtn.innerHTML = shoppingCartIcon
 
-            addToCartBtn.addEventListener('click', () => {
-                totalPrice += price;
-                cartCounter.textContent = `TZS ${totalPrice}`;
-                addToCartBtn.classList.add('inactive');
-                addToCartBtn.disabled = true;
-                gamesArr.push(item.title);
+
+            cardImage.addEventListener('click', () => {
+                pullMoreInfoSect()
+
             })
 
-            gameCard.addEventListener('click', () => {
+            moreInfoBtn.addEventListener('click', () => {
+                pullMoreInfoSect()
+            })
+
+            function pullMoreInfoSect() {
+                moreInfoArea.classList.remove('collapse')
                 moreInfoArea.innerHTML = '';
+
+                const buttonLine = document.createElement('div')
+                moreInfoArea.appendChild(buttonLine);
+                buttonLine.className = 'close-btn-div';
+
+                const closeMenuBtn = document.createElement('button');
+                buttonLine.appendChild(closeMenuBtn);
+                closeMenuBtn.className = 'button';
+                closeMenuBtn.classList.add('close-menu-btn');
+                closeMenuBtn.textContent = 'X';
+
+                closeMenuBtn.addEventListener('click', () => {
+                    moreInfoArea.classList.add('collapse')
+                })
 
                 const gameTitleInfo = document.createElement('h1');
                 moreInfoArea.appendChild(gameTitleInfo);
@@ -113,22 +136,102 @@ document.addEventListener('DOMContentLoaded', () => {
                 gameDescription.className = 'more-info-description';
                 gameDescription.textContent = item.short_description;
 
+                const pointersArea = document.createElement('div');
+                moreInfoArea.appendChild(pointersArea);
+                pointersArea.className = 'pointers-area';
+
                 const developerInfo = document.createElement('p');
-                moreInfoArea.appendChild(developerInfo);
+                pointersArea.appendChild(developerInfo);
                 developerInfo.className = 'more-info-developer pointer';
                 developerInfo.innerHTML = `<span>Developer:</span> ${item.developer}`;
 
-
                 const genreInfo = document.createElement('p');
-                moreInfoArea.appendChild(genreInfo);
+                pointersArea.appendChild(genreInfo);
                 genreInfo.className = 'more-info-genre pointer';
                 genreInfo.innerHTML = `<span>Genre:</span> ${item.genre}`;
 
                 const platformInfo = document.createElement('p');
-                moreInfoArea.appendChild(platformInfo);
+                pointersArea.appendChild(platformInfo);
                 platformInfo.className = 'more-info-platform pointer';
                 platformInfo.innerHTML = `<span>Platform:</span> ${item.platform}`;
-            })
+
+                const priceArea = document.createElement('div');
+                moreInfoArea.appendChild(priceArea);
+                priceArea.className = 'price-area'
+
+                const priceInfo = document.createElement('p');
+                priceArea.appendChild(priceInfo);
+                priceInfo.className = 'more-info-price header';
+                priceInfo.innerHTML = `<span>Price:</span> ${price}`;
+
+                const addToCartMoreInfo = document.createElement('button')
+                priceArea.appendChild(addToCartMoreInfo)
+                addToCartMoreInfo.className = 'button checkout';
+                addToCartMoreInfo.id = 'add-to-cart-more-info'
+                addToCartMoreInfo.innerText = 'Add to Cart'
+                addToCartMoreInfo.style.width = '120px'
+
+
+
+                if (addToCartBtn.disabled) {
+                    disableAddButton(addToCartMoreInfo);
+                    addToCartMoreInfo.innerHTML = 'Added to Cart';
+                }
+
+                addToCartBtn.addEventListener('click', () => {
+                    disableAddButton(addToCartMoreInfo);
+                    addToCartMoreInfo.innerHTML = 'Added to Cart';
+                })
+
+                addToCartMoreInfo.addEventListener('click', () => {
+                    updateToCart();
+                    disableAddButton(addToCartMoreInfo);
+                    addToCartMoreInfo.innerHTML = 'Added to Cart';
+                })
+
+
+            }
+            updateToCart();
+
+            function updateToCart() {
+                addToCartBtn.addEventListener('click', () => {
+                    if (!addToCartBtn.disabled) {
+                        totalPrice += price;
+                        cartCounter.textContent = `TZS ${totalPrice}`;
+                        disableAddButton(addToCartBtn);
+                        gamesArr.push(item.title);
+                    }
+                })
+                return gamesArr && totalPrice
+            }
+
+            function disableAddButton(button) {
+                button.classList.add('inactive');
+                button.disabled = true;
+            }
         }
     }
+    checkoutButton.addEventListener('click', () => {
+        if (totalPrice > 0) {
+            checkoutBanner.classList.remove('hidden');
+
+            const gamesList = document.querySelector('.items-list');
+            const priceTotal = document.getElementById('total-price');
+
+            for (const item of gamesArr) {
+                const listEntry = document.createElement('li');
+                gamesList.appendChild(listEntry)
+                listEntry.textContent = item
+            }
+
+            priceTotal.textContent = totalPrice
+
+
+        } else alert('You don\'t have anything in the Cart!')
+    })
+
+    checkoutCloseBtn.addEventListener('click', () => {
+        checkoutBanner.classList.add('hidden');
+    })
+
 })

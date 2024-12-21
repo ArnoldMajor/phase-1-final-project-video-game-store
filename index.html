@@ -31,15 +31,28 @@
                     </g>
                 </svg>
                 <p id="cart-counter">0</p>
-                <button class="button primary">Checkout</button>
+                <button class="button primary" id="checkout-btn">Checkout</button>
             </div>
         </div>
         <div class="checkout-box hidden" id="checkout-banner">
-            <p>You have checked out!</p>
+            <div class="close-btn-div">
+                <button class="close-menu-button button" id="checkout-closer">X</button>
+            </div>
+            <div class="checkout-items">
+                <h1>Your Selections</h1>
+                <ul class="items-list"></ul>
+            </div>
+            <div class="total-area">
+                <p>Total: </p>
+                <p id="total-price"></p>
+            </div>
+            <div id="confirm-button">
+                <button>Confirm Order</button>
+            </div>
         </div>
         <div class="main-area">
             <div class="content-area"></div>
-            <div class="more-info"></div>
+            <div class="more-info collapse"></div>
         </div>
     </div>
     </div>
